@@ -70,12 +70,16 @@ When('I add a menu to {string} with label {string} as a new element in {string} 
 
 When('I check the last menu item in {string} navigation', async function (navigation) {
     const navigationLinks = {'primary': '.gh-head-menu', 'secondary':'.gh-foot-menu'}
-    const elementsURL = this.driver.$$(navigationLinks[navigation]+" .nav li:last-child a")
-    const menuElements = this.driver.$$(navigationLinks[navigation]+" .nav li")
+    const elementsURL = await this.driver.$$(navigationLinks[navigation]+" .nav li:last-child a")
+    const menuElements = await this.driver.$$(navigationLinks[navigation]+" .nav li")
 
     const elementsHrefs = []
     for (const elementURL of elementsURL){
-        elementsHrefs.push(elementURL.getAttribute('href'))
+        try {
+            if (typeof elementURL === 'object') {
+                elementsHrefs.push(await this.driver.$(elementURL).getAttribute('href'))
+            }
+        } catch (e){}
     }
 
     returns['last-item-link'] = {totalElements: menuElements.length, elementsHrefs}
@@ -94,15 +98,19 @@ When('I remove the last menu item in {string} navigation', async function (navig
 When('I check that the last menu item was deleted in the {string} navigation', async function (navigation) {
     const navigationLinks = {'primary': '.gh-head-menu', 'secondary':'.gh-foot-menu'}
 
-    const elementsURL = this.driver.$$(navigationLinks[navigation]+" .nav li a")
-    const menuElements = this.driver.$$(navigationLinks[navigation]+" .nav li")
+    const elementsURL = await this.driver.$$(navigationLinks[navigation]+" .nav li a")
+    const menuElements = await this.driver.$$(navigationLinks[navigation]+" .nav li")
 
     for (let i = 0; i< elementsURL.length;i++)
     {
-        expect(returns['last-item-link'].elementsHrefs[i]).to.equal(elementsURL[i].getAttribute('href'));
+        try {
+            if (typeof elementsURL[i] === 'object') {
+                expect(returns['last-item-link'].elementsHrefs[i]).to.equal(await this.driver.$(elementsURL[i]).getAttribute('href'));
+            }
+        } catch (e){}
     }
 
-    expect(menuElements.length).to.equal(returns['last-item-link'].totalElements);
+    expect(menuElements.length).to.equal(returns['last-item-link'].totalElements-1);
     return await delay(5000)
 })
 
