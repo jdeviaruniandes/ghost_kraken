@@ -3,8 +3,27 @@ const {faker} = require("@faker-js/faker");
 const expect = require('chai').expect;
 const returns = {}
 
-function delay(time) {
+
+
+
+async function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
+}
+
+async function searchableElementIncluding(driver, elements, target) {
+    const filtered = []
+    for(const element of Object.values(elements)) {
+        try {
+            if (typeof element === 'object') {
+                const text = await driver.$(element).getText()
+                if (text.toLowerCase().includes(target.toLowerCase())) {
+                    filtered.push(element)
+                }
+            }
+
+        } catch (e) {}
+    }
+    return filtered
 }
 
 Given('I navigate to ghost admin', async function () {
@@ -12,8 +31,80 @@ Given('I navigate to ghost admin', async function () {
     return await delay(5000)
 });
 
+Given('I open menu invite people', async function () {
+    await this.driver.$(".view-actions button.gh-btn-primary").click()
+    return await delay(5000)
+})
+
+Given('I fill the input with id selector {string} with {string}', async function (inputId,email) {
+    await this.driver.$(inputId).setValue(email)
+    return await delay(5000)
+})
+
+Given('I select the option {string} in the invite a new staff modal', async function (target) {
+    let elements = await this.driver.$$('.gh-roles-container .gh-radio .gh-radio-label');
+    const filtered = await searchableElementIncluding(this.driver,elements,target)
+    expect(filtered.length).to.equal(1);
+    await this.driver.$(filtered[0]).click()
+    return await delay(5000)
+})
+
+
+Given('I refresh the website', async function () {
+    await this.driver.refresh()
+    return await delay(5000)
+})
+
+Given('I check that the invitation has been deleted', async function () {
+    let elements = await this.driver.$$('.apps-configured a[href="#revoke"]');
+    expect(elements.length).to.equal(returns['invitations']-1)
+    return await delay(5000)
+})
+
+Given('I see an error saying {string} in the {string} field', async function (response,field) {
+    let elements = await this.driver.$$(field);
+    const filtered = await searchableElementIncluding(this.driver, elements, response)
+
+    expect(filtered.length).equal(1)
+    return await delay(5000)
+})
+
+Given('I revoke the invitation', async function () {
+    let elements = await this.driver.$$('.apps-configured a[href="#revoke"]');
+    returns['invitations'] = elements.length
+
+    await this.driver.$('.apps-configured a[href="#revoke"]').click()
+    return await delay(5000)
+});
+
+
+
+
 Given('I navigate to ghost website', async function () {
     await this.driver.navigateTo("http://uniandes.ingenio.com.co:2368");
+    return await delay(5000)
+});
+
+Given('I am logged in the admin section', async function () {
+    const currentUrl = await this.driver.getUrl()
+    console.log(currentUrl)
+    expect(currentUrl).equal('http://uniandes.ingenio.com.co:2368/ghost/#/dashboard')
+})
+
+Given('I logout admin', async function () {
+    const elementNotification = await this.driver.$$(".gh-notification-close");
+    if (elementNotification.length > 0){
+        await this.driver.$(".gh-notification-close").click();
+    }
+
+    await this.driver.$(".gh-nav-bottom .gh-user-avatar").click();
+    await delay(1000)
+    await this.driver.$(".user-menu-signout").click();
+    return await delay(5000)
+});
+
+Given('I send the invitation mail', async function () {
+    let element = await this.driver.$('.modal-footer button').click();
     return await delay(5000)
 });
 
@@ -121,21 +212,12 @@ When('I go into {string} settings', async function (settings) {
     return await delay(5000)
 })
 
-When('I expand the {string} section', async function (section) {
+
+
+When('I expand the {string} section', async function (target)
+{
     let elements = await this.driver.$$('.gh-expandable-block');
-    const filtered = []
-     for(const element of Object.values(elements)){
-        try {
-            if(typeof element === 'object'){
-                const text = await this.driver.$(element).getText()
-                if (text.toLowerCase().includes(section.toLowerCase())){
-                    filtered.push(element)
-                }
-            }
-
-        } catch (e){}
-
-    }
+    const filtered = await searchableElementIncluding(this.driver,elements,target)
     expect(filtered.length).to.equal(1);
     await this.driver.$(filtered[0]).$('button.gh-btn').click()
     return await delay(5000)
@@ -163,28 +245,8 @@ When('I fill the input in the position {int} in the expanded section', async fun
     return await delay(5000)
 })
 
-When('I change title admin website with random text', async function () {
-    let elements = await this.driver.$$('.gh-expandable-block');
-    const filtered = []
-    for(const element of Object.values(elements)){
-        try {
-            if(typeof element === 'object'){
-                const text = await this.driver.$(element).getText()
-                if (text.toLowerCase().includes('')){
-                    filtered.push(element)
-                }
-            }
-
-        } catch (e){}
-
-    }
-    expect(filtered.length).to.equal(1);
-    await this.driver.$(filtered[0]).$('button.gh-btn').click()
-    return await delay(5000)
-})
-
-When('I go into posts', async function () {
-    let element = await this.driver.$('.gh-nav-top a[href="#/posts/"]');
+When('I go into {string}', async function (section) {
+    let element = await this.driver.$('.gh-nav-top a[href="#/'+section+'/"]');
     await element.click()
     return await delay(5000)
 });

@@ -1,4 +1,4 @@
-Feature: Iniciar una conversación
+Feature: Admin create elements in configuration
 
 
 @user1 @web

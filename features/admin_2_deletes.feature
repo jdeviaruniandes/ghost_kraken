@@ -1,4 +1,4 @@
-Feature: Iniciar una conversación
+Feature: Admin delete elements in configurations
 
 @user2 @web
 Scenario: Como usuario administrador elimino un elemento del menu en la navegacion principal
