@@ -1,8 +1,8 @@
 import {faker} from "@faker-js/faker";
 
 describe('Admin create elements in configuration', () => {
-
-  it('Como usuario administrador envio una invitación a un nuevo usuario', () => {
+/*
+  it('Como usuario administrador envio una invitación y la elimino a un nuevo usuario', () => {
 
     const email = faker.lorem.words(1) + (Date.now()) + '@' + faker.internet.domainName()
 
@@ -43,4 +43,22 @@ describe('Admin create elements in configuration', () => {
 
   })
 
+
+  */
+    it('Como usuario administrador invito a un usuario ya existente', () => {
+
+        cy.intercept('/ghost/api/admin/invites/*').as('saveSettings')
+        cy.goAdminAndLogin()
+        cy.goIntoSettings('staff')
+
+        cy.get(".view-actions button.gh-btn-primary").click()
+        cy.wait(1000)
+        cy.get('#new-user-email').clear().type('jfdeviar@gmail.com')
+        cy.get('.gh-roles-container .gh-radio .gh-radio-label').contains(faker.helpers.arrayElement(['Author','Editor','Administrator'])).click()
+        cy.get('.modal-footer button').click()
+        cy.wait('@saveSettings')
+        cy.get('.response').contains('A user with that email address already exists').should('be.visible')
+
+
+    })
 })
