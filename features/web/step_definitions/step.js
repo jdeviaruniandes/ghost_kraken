@@ -76,10 +76,154 @@ Given('I revoke the invitation', async function () {
     await this.driver.$('.apps-configured a[href="#revoke"]').click()
     return await delay(5000)
 });
+//#region Post funct
+Given('I select new post', async function () {
+    let element = await this.driver.$("a.ember-view.gh-btn");
+    await element.click();
+    return await delay(5000)
+})
+
+Given('I fill the post title with {string} and description with {string}', async function (title, description) {
+   let textArea = await this.driver.$('textarea.gh-editor-title')
+   await textArea.click();
+   await textArea.setValue(title);
+   await delay(3000)
+   let descriptionHTML = await this.driver.$('article.koenig-editor')
+   await descriptionHTML.click();
+   await descriptionHTML.setValue(description);
+   return await delay(5000)
+})
+
+Given('I fill the post title with random title', async function () {
+    let textArea = await this.driver.$('textarea.gh-editor-title')
+    await textArea.click();
+    let randTitle = faker.name.jobTitle()
+    await textArea.setValue(randTitle);
+    returns['randomPostTitle'] = randTitle
+    return await delay(5000)
+ })
+
+Given('I select last post published',async function () {
+    let element = await this.driver.$("div.gh-contentfilter-type");
+    await element.click();
+    await delay(1000)
+    element = await this.driver.$$("li.ember-power-select-option");
+    const filtered = await searchableElementIncluding(this.driver,element,'Published posts')
+    expect(filtered.length).to.equal(1);
+    await this.driver.$(filtered[0]).click()
+    await delay(1000)
+    element = await this.driver.$("h3.gh-content-entry-title");
+    await element.click();
+    return await delay(5000)
+})
+
+When('I publish the post', async function () {
+    let element = await this.driver.$("button.gh-publish-trigger");
+    await element.click();
+    await delay(1000)
+    element = await this.driver.$("button.gh-btn.gh-btn-black.gh-btn-large");
+    await element.click();
+    await delay(1000)
+    element = await this.driver.$("button.gh-btn.gh-btn-pulse");
+    await element.click();
+    await delay(1000)
+    element = await this.driver.$("div.gh-post-bookmark-container");
+    await element.click();
+    return await delay(5000)
+})
+
+When('I edit the post', async function () {
+    let element = await this.driver.$("button.gh-editor-save-trigger");
+    await element.click();
+    await delay(1000)
+    element = await this.driver.$("span.gh-notification-actions a");
+    await element.click();
+    await delay(5000)
+})
+
+Then('I Check post has title {string} and description {string}', async function (title, description) {
+    let titleHtml = await this.driver.$("h1.single-title")
+    let descHtml = await this.driver.$("div.single-content p")
+    expect(await titleHtml.getText()).equal(title)
+    expect(await descHtml.getText()).equal(description)
+    return await delay(5000)
+})
+
+Then('I Check post has the random title', async function () {
+    let titleHtml = await this.driver.$("h1.single-title")
+    expect(await titleHtml.getText()).equal(returns['randomPostTitle'])
+    return await delay(5000)
+})
+
+//#endregion
+
+//#region Tag funct
+Given('I select new tag', async function () {
+    let element = await this.driver.$('a.ember-view.gh-btn.gh-btn-primary')
+    element.click()
+    await delay(3000)
+ })
+
+ Given('I select existing tag',async function () {
+    let element = await this.driver.$('a.ember-view.gh-list-data.gh-tag-list-title')
+    element.click()
+    await delay(3000)
+ })
 
 
+When('I fill tag with random name and description', async function () {
+    let element = await this.driver.$('#tag-name')
+    const randTitle = faker.name.jobTitle()
+    returns['randomTagTitle'] = randTitle
+    element.setValue(randTitle)
+    await delay(3000)
+
+    element = await this.driver.$('#tag-description')
+    const randDescription = faker.name.jobDescriptor()
+    returns['randomTagDescription'] = randDescription
+    element.setValue(randDescription)
+    await delay(3000)
+
+    element = await this.driver.$('button.gh-btn.gh-btn-primary.gh-btn-icon.ember-view')
+    element.click()
+    return await delay(5000)
+ })
+
+ When('I delete the tag', async function () {
+    let element = await this.driver.$('h2.gh-canvas-title')
+    returns['deletedTag'] = await element.getText()
+
+    element = await this.driver.$('button.gh-btn.gh-btn-red.gh-btn-icon')
+    element.click()
+    await delay(3000)
+
+    element = await this.driver.$('button.gh-btn.gh-btn-red.gh-btn-icon.ember-view')
+    element.click()
+    await delay(5000)
+ })
+
+ Then('I chek tag with random name exists and has description', async function (){
+    const titles= await this.driver.$$('h3.gh-tag-list-name')
+    let filtered = await searchableElementIncluding(this.driver,titles,returns["randomTagTitle"])
+    expect(filtered.length).to.equal(1);
+    expect(await filtered[0].getText()).to.equal(returns["randomTagTitle"]);
+
+    const descriptions = await this.driver.$$('p.gh-tag-list-description')
+    filtered = await searchableElementIncluding(this.driver,descriptions,returns["randomTagDescription"])
+    expect(await filtered[0].getText()).to.equal(returns["randomTagDescription"]);
+
+    return await delay(5000)
+ })
+
+ Then('I chek tag doest not exists', async function (){
+    const titles= await this.driver.$$('h3.gh-tag-list-name')
+    let filtered = await searchableElementIncluding(this.driver,titles,returns["deletedTag"])
+    expect(filtered.length).to.equal(0);
+    return await delay(5000)
+ })
 
 
+//#endregion
 Given('I navigate to ghost website', async function () {
     await this.driver.navigateTo("http://uniandes.ingenio.com.co:2368");
     return await delay(5000)
