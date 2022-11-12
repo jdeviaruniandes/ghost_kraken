@@ -3,7 +3,12 @@
     "chai": "^4.3.7",
     "kraken-node": "^1.0.24"
   },
+  "scripts": {
+    "kraken": "./node_modules/kraken-node/bin/kraken-node run",
+    "cypress": "./node_modules/.bin/cypress open"
+  },
   "devDependencies": {
-    "@faker-js/faker": "^7.6.0"
+    "@faker-js/faker": "^7.6.0",
+    "cypress": "^11.0.1"
   }
 }
