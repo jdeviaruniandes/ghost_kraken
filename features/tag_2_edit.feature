@@ -1,7 +1,7 @@
 Feature: Editar Tag
 
     @user1 @web
-    Scenario: Como usuario administrador creo un Tag con description
+    Scenario: Como usuario administrador edito un Tag
         Given I navigate to ghost admin
         And I login into the administrator
         And I go into "tags"
