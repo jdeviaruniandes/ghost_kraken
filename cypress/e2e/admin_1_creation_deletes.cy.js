@@ -1,7 +1,7 @@
 import {faker} from "@faker-js/faker";
 
 describe('Admin create and delete elements in configuration', () => {
-  /*
+
   it('Como usuario administrador cambio el titulo y lo verifico en la página', () => {
     const newTitle = faker.lorem.words(2)
     cy.intercept('/ghost/api/admin/settings').as('saveSettings')
@@ -70,6 +70,6 @@ describe('Admin create and delete elements in configuration', () => {
       })
     })
   })
-*/
+
 
 })

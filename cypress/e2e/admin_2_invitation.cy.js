@@ -1,7 +1,7 @@
 import {faker} from "@faker-js/faker";
 
 describe('Admin create elements in configuration', () => {
-/*
+
   it('Como usuario administrador envio una invitación y la elimino a un nuevo usuario', () => {
 
     const email = faker.lorem.words(1) + (Date.now()) + '@' + faker.internet.domainName()
@@ -44,7 +44,6 @@ describe('Admin create elements in configuration', () => {
   })
 
 
-  */
     it('Como usuario administrador invito a un usuario ya existente', () => {
 
         cy.intercept('/ghost/api/admin/invites/*').as('saveSettings')
