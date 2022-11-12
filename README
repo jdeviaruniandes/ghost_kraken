@@ -1,0 +1,51 @@
+## Escenarios contemplados para las pruebas:
+* Iniciar sesión, entrar al perfil y cambiar el nombre guardando cambios
+* Iniciar sesión, entrar al perfil y cambiar el nombre sin guardar cambios
+* iniciar sesión, entrar al perfil e intentar cambiar la contraseña con menos de 10 caracteres
+* Iniciar sesión, entrar al perfil e intentar cambiar la bio con más de 200 caracteres
+* Iniciar sesión, entrar al perfil y cambiar la bio con menos de 200 caracteres, verificar que quedó guardada
+*  *DESC_ESC_6* 
+*  *DESC_ESC_7* 
+*  *DESC_ESC_8* 
+*  *DESC_ESC_9* 
+*  *DESC_ESC_10* 
+*  *DESC_ESC_11* 
+*  *DESC_ESC_12* 
+*  *DESC_ESC_13* 
+*  *DESC_ESC_14* 
+*  *DESC_ESC_15* 
+*  *DESC_ESC_16* 
+*  *DESC_ESC_17* 
+*  *DESC_ESC_18* 
+*  *DESC_ESC_19* 
+*  *DESC_ESC_20* 
+
+
+
+## Funcionalidades contempladas
+* Iniciar sesión
+* Entrar al perfil
+* Cambiar nombre 
+* Cambiar contraseña
+* Cambiar biografia
+* Cambiar el titulo de la página
+* Crear un menú en la página
+* Eliminar último menú en la página
+* Invitación y eliminación de invitación al staff
+* Invitación al staff de un usuario registrado
+* Crear un post con titulo y descripción en pagina
+* Editar un post que ha sido creado
+* Crear Tag con descripción
+* Edita un Tag creado
+* Crear y eliminar un Tag
+
+## Pasos para ejecutar Kraken
+1. Clonar repositorio en una máquina local
+2. Correr en la consola npm install
+3. Correr en la consola npm run kraken
+
+
+## Pasos para ejecutar Cypress
+1. Clonar repositorio en una máquina local
+2. Correr en la consola npm install
+3. Correr en la consola npm run cypress

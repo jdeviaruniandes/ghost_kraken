@@ -3,3 +3,4 @@ reports
 .kraken
 package-lock.json
 .idea
+.DS_Store
