@@ -36,8 +36,15 @@ Given('I open menu invite people', async function () {
     return await delay(5000)
 })
 
+
 Given('I fill the input with id selector {string} with {string}', async function (inputId,email) {
     await this.driver.$(inputId).setValue(email)
+    return await delay(5000)
+})
+
+Given('I fill the bio with faker with {string} words', async function (words) {
+    returns["bio"] = faker.lorem.words(parseInt(words))
+    await this.driver.$("#user-bio").setValue(returns["bio"])
     return await delay(5000)
 })
 
@@ -131,6 +138,19 @@ When('I login into the administrator', async function () {
 
 When('I save general settings changes', async function () {
     await this.driver.$(".view-actions button").click();
+    return await delay(5000)
+})
+
+When('I go to my profile', async function (){
+    let element = await this.driver.$('div.gh-user-avatar');
+    await element.click();
+    let secondElement = await this.driver.$('li a[href="#/settings/staff/johnattan/"]');
+    await secondElement.click()
+    return await delay(5000)
+})
+
+When('I save the profile changes', async function (){
+    await this.driver.$('button.gh-btn-primary').click();
     return await delay(5000)
 })
 
@@ -250,3 +270,43 @@ When('I go into {string}', async function (section) {
     await element.click()
     return await delay(5000)
 });
+
+Then("I check that the full name is {string}", async function (newFullNameProfile){
+    newProfileNameWeb = await this.driver.$("h2.gh-canvas-title").getText()
+    expect(newFullNameProfile).equal(newProfileNameWeb)
+    return await delay(5000);
+})
+
+
+When('I enter {string} to the input with class {string}', async function (value,inputClass) {
+    let element =  await this.driver.$(`input.${inputClass}`);
+    await element.click();
+    await element.setValue(value);
+    return await delay(5000)
+})
+
+When('I relog page without save', async function () {
+    const currentUrl = await this.driver.getUrl()
+    await this.driver.navigateTo(currentUrl);
+    return await delay(5000)
+})
+
+When('I try to change password', async function () {
+    let element =  await this.driver.$('button.button-change-password');
+    await element.click();
+    return await delay(5000)
+})
+
+Then("I check the error message {string}", async function (error){
+    let elements = await this.driver.$$('p.response');
+    const filtered = await searchableElementIncluding(this.driver,elements,error)
+    expect(filtered.length).to.equal(1);
+    return await delay(5000);
+})
+
+
+Then("I check the Bio is updated", async function (){
+    let text = await this.driver.$("textarea.gh-input").getText();
+    expect(returns["bio"]).to.include(text);
+    return await delay(5000);
+})
