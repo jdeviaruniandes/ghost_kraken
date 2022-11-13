@@ -54,3 +54,4 @@
 1. Clonar repositorio en una máquina local
 2. Correr en la consola npm install
 3. Correr en la consola npm run cypress
+4. Seleccionar pruebas e2e y seleccionar en el navegador el archivo a correr.
