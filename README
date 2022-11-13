@@ -4,21 +4,21 @@
 * iniciar sesión, entrar al perfil e intentar cambiar la contraseña con menos de 10 caracteres
 * Iniciar sesión, entrar al perfil e intentar cambiar la bio con más de 200 caracteres
 * Iniciar sesión, entrar al perfil y cambiar la bio con menos de 200 caracteres, verificar que quedó guardada
-*  *DESC_ESC_6* 
-*  *DESC_ESC_7* 
-*  *DESC_ESC_8* 
-*  *DESC_ESC_9* 
-*  *DESC_ESC_10* 
-*  *DESC_ESC_11* 
-*  *DESC_ESC_12* 
-*  *DESC_ESC_13* 
-*  *DESC_ESC_14* 
-*  *DESC_ESC_15* 
-*  *DESC_ESC_16* 
-*  *DESC_ESC_17* 
-*  *DESC_ESC_18* 
-*  *DESC_ESC_19* 
-*  *DESC_ESC_20* 
+* Agregar boletin, indicar nombre, decripción y crear
+* Agregar boletin, indicar nombre, decripción y cancelar
+* Nueva pagina, insertar titulo, descripcion, publicar ahora mismo
+* Nueva pagina, insertar titulo, descripcion y cancelar
+* Editar pagina, publicar
+* Cambiar el titulo de la página
+* Crear un menú en la página
+* Eliminar último menú en la página
+* Invitación y eliminación de invitación al staff
+* Invitación al staff de un usuario registrado
+* Crear un post con titulo y descripción en pagina
+* Editar un post que ha sido creado
+* Crear Tag con descripcion
+* Edita un Tag creado
+* Crear y eliminar un Tag
 
 
 
