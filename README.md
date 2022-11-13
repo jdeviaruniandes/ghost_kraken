@@ -37,7 +37,7 @@
 * Editar Post 
 * Crear Tag
 * Editar Tag
-* Eliminar un Tag
+* Eliminar Tag
 
 ## Pasos para ejecutar Kraken
 1. Clonar repositorio en una máquina local
