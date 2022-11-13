@@ -36,7 +36,7 @@
 * Crear Post
 * Editar Post 
 * Crear Tag
-* Edita Tag
+* Editar Tag
 * Eliminar un Tag
 
 ## Pasos para ejecutar Kraken
