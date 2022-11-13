@@ -33,11 +33,11 @@
 * Eliminar último menú en la página
 * Invitación y eliminación de invitación al staff
 * Invitación al staff de un usuario registrado
-* Crear un post con titulo y descripción en pagina
-* Editar un post que ha sido creado
-* Crear Tag con descripción
-* Edita un Tag creado
-* Crear y eliminar un Tag
+* Crear Post
+* Editar Post 
+* Crear Tag
+* Edita Tag
+* Eliminar un Tag
 
 ## Pasos para ejecutar Kraken
 1. Clonar repositorio en una máquina local
