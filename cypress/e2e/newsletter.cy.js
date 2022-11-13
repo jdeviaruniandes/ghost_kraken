@@ -1,6 +1,6 @@
 import {faker} from "@faker-js/faker";
 
-describe('Admin create elements in configuration', () => {
+describe('Admin add newsletter', () => {
 
   it('Como usuario administrador me logeo e intento agregar boletin, indicar nombre, decripción y crear', () => {
     const title = faker.name.jobTitle();
