@@ -14,11 +14,11 @@
 * Eliminar último menú en la página
 * Invitación y eliminación de invitación al staff
 * Invitación al staff de un usuario registrado
-* Crear un post con titulo y descripción en pagina
-* Editar un post que ha sido creado
-* Crear Tag con descripcion
-* Edita un Tag creado
-* Crear y eliminar un Tag
+* Crear un post con titulo y descripción en pagina y verificar que quedó guardado
+* Editar un post que ha sido creado y verificar que se editó
+* Crear Tag con descripcion y verificar que quedó guardado
+* Edita un Tag creado y verificar que se editó
+* Crear y eliminar un Tag y verificar que no existe
 
 
 
