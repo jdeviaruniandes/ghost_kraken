@@ -4,8 +4,8 @@ Feature: Admin edit page
 Scenario: Como usuario administrador me logeo e intento editar una pagina
   Given I navigate to ghost admin
   And I login into the administrator
-  And I go into "Pages"
-  And I select existing page
-  When I fill page with random name and description
-  And I go into "Pages"
-  Then I chek page with random name exists and has description
+  And I go into "pages"
+  And I select last page published
+  And I fill the page title with random title
+  When I edit the page
+  Then I Check page has the random title

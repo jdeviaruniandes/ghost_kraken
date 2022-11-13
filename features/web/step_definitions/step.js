@@ -48,6 +48,7 @@ Given('I fill the bio with faker with {string} words', async function (words) {
     return await delay(5000)
 })
 
+
 Given('I select the option {string} in the invite a new staff modal', async function (target) {
     let elements = await this.driver.$$('.gh-roles-container .gh-radio .gh-radio-label');
     const filtered = await searchableElementIncluding(this.driver,elements,target)
@@ -600,4 +601,121 @@ Then("I check the Bio is updated", async function (){
     let text = await this.driver.$("textarea.gh-input").getText();
     expect(returns["bio"]).to.include(text);
     return await delay(5000);
+})
+
+//#region newsletter
+
+Given('I select add newsletter', async function () {
+    let element = await this.driver.$('a.ember-view.gh-add-newsletter')
+    element.click()
+    await delay(3000)
+ })
+
+Given('I fill the input with id selector name {string} with {string}', async function (inputId,name) {
+    await this.driver.$(inputId).setValue(name)
+    return await delay(5000)
+})
+
+Given('I fill the input with id selector description {string} with {string}', async function (inputId,description) {
+    await this.driver.$(inputId).setValue(description)
+    return await delay(5000)
+})
+
+Then('I select create', async function () {
+    let element = await this.driver.$('#ember321');
+    element.click()
+    await delay(3000)
+ })
+
+Then('I select cancel', async function () {
+    let element = await this.driver.$('.modal-footer button').click();
+    return await delay(5000)
+});
+
+//#region pages
+
+Given('I select new page', async function () {
+    let element = await this.driver.$("a.ember-view.gh-btn")
+    element.click()
+    await delay(3000)
+ })
+
+
+Given('I fill the page title with {string} and description with {string}', async function (title, description) {
+    let textArea = await this.driver.$('textarea.gh-editor-title')
+    await textArea.click();
+    await textArea.setValue(title);
+    await delay(3000)
+    let descriptionHTML = await this.driver.$('article.koenig-editor')
+    await descriptionHTML.click();
+    await descriptionHTML.setValue(description);
+    return await delay(5000)
+ })
+ 
+
+When('I select publish', async function () {
+    let element = await this.driver.$("button.gh-publish-trigger");
+    await element.click();
+    await delay(1000)
+    element = await this.driver.$("button.gh-btn.gh-btn-black.gh-btn-large");
+    await element.click();
+    await delay(1000)
+    element = await this.driver.$("button.gh-btn.gh-btn-pulse");
+    await element.click();
+    await delay(1000)
+    element = await this.driver.$("div.gh-page-bookmark-container");
+    await element.click();
+    return await delay(5000)
+})
+
+Then('I Check page has title {string} and description {string}', async function (title, description) {
+    let titleHtml = await this.driver.$("h1.single-title")
+    let descHtml = await this.driver.$("div.single-content p")
+    expect(await titleHtml.getText()).equal(title)
+    expect(await descHtml.getText()).equal(description)
+    return await delay(5000)
+})
+
+Then('I select pages', async function () {
+    let element = await this.driver.$("a.ember-view.gh-btn-editor")
+    element.click()
+    await delay(3000)
+ })
+
+Given('I select last page published',async function () {
+    let element = await this.driver.$("div.gh-contentfilter-type");
+    await element.click();
+    await delay(1000)
+    element = await this.driver.$$("li.ember-power-select-option");
+    const filtered = await searchableElementIncluding(this.driver,element,'Published page')
+    expect(filtered.length).to.equal(1);
+    await this.driver.$(filtered[0]).click()
+    await delay(1000)
+    element = await this.driver.$("h3.gh-content-entry-title");
+    await element.click();
+    return await delay(5000)
+})
+
+Given('I fill the page title with random title', async function () {
+    let textArea = await this.driver.$('textarea.gh-editor-title')
+    await textArea.click();
+    let randTitle = faker.name.jobTitle()
+    await textArea.setValue(randTitle);
+    returns['randomPageTitle'] = randTitle
+    return await delay(5000)
+ })
+
+When('I edit the page', async function () {
+    let element = await this.driver.$("button.gh-editor-save-trigger");
+    await element.click();
+    await delay(1000)
+    element = await this.driver.$("span.gh-notification-actions a");
+    await element.click();
+    await delay(5000)
+})
+
+Then('I Check page has the random title', async function () {
+    let titleHtml = await this.driver.$("h1.single-title")
+    expect(await titleHtml.getText()).equal(returns['randomPageTitle'])
+    return await delay(5000)
 })
