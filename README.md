@@ -33,6 +33,11 @@
 * Eliminar último menú en la página
 * Invitación y eliminación de invitación al staff
 * Invitación al staff de un usuario registrado
+* Crear boletin
+* Cancelar creacion de boletin
+* Crear pagina
+* Cancelar creacion de pagina
+* Editar pagina
 * Crear Post
 * Editar Post 
 * Crear Tag

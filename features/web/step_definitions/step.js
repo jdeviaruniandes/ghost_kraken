@@ -622,13 +622,13 @@ Given('I fill the input with id selector description {string} with {string}', as
 })
 
 Then('I select create', async function () {
-    let element = await this.driver.$('#ember321');
+    let element = await this.driver.$('button.gh-btn-primary');
     element.click()
     await delay(3000)
  })
 
 Then('I select cancel', async function () {
-    let element = await this.driver.$('.modal-footer button').click();
+    let element = await this.driver.$('button.gh-btn').click();
     return await delay(5000)
 });
 
