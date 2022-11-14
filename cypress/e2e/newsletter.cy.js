@@ -6,6 +6,7 @@ describe('Admin add newsletter', () => {
     const title = faker.name.jobTitle();
     const description = faker.lorem.paragraph();
     cy.goAdminAndLogin()
+    cy.wait(5000)
     cy.get('li a[href="#/settings/newsletters/"]').click()
     cy.get('li a[href="#/settings/newsletters/new"]').click()
     cy.get('#newsletter-title').type(title);
@@ -18,6 +19,7 @@ describe('Admin add newsletter', () => {
     const title = faker.name.jobTitle();
     const description = faker.lorem.paragraph();
     cy.goAdminAndLogin()
+    cy.wait(5000)
     cy.get('li a[href="#/settings/newsletters/"]').click()
     cy.get('li a[href="#/settings/newsletters/new"]').click()
     cy.get('#newsletter-title').type(title);
