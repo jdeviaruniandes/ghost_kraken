@@ -30,11 +30,13 @@ describe("Admin create/cancel/edit page", () => {
       .click();
     cy.get("textarea.gh-editor-title").type(title);
     cy.get("article.koenig-editor").type(description);
-    cy.get('li a[href="#/pages"]').click()
+    cy.wait(5000)
+    cy.reload()
+    cy.wait(1000)
+    cy.get("div.koenig-editor__editor p").should("have.text", description);
+});
 
-  });
-
-  it("Como usuario administrador me logeo e intento editar una pagina", () => {
+  it("Como usuario administrador me logeo e intento editar una pagina y la publico", () => {
     const title = faker.name.jobTitle();
     const description = faker.lorem.paragraph();
     cy.goAdminAndLogin();
@@ -44,12 +46,9 @@ describe("Admin create/cancel/edit page", () => {
     cy.get("h3.gh-content-entry-title").first().click();
     cy.get("textarea.gh-editor-title").clear().type(title);
     cy.get("article.koenig-editor").clear().type(description);
-    cy.get("button.gh-editor-save-trigger").click();
-    cy.get("span.gh-notification-actions a")
-      .invoke("removeAttr", "target")
-      .click();
-    cy.get("h1.single-title").should("have.text", title);
-    cy.get("div.single-content p").should("have.text", description);
+    cy.get("button.gh-publish-trigger").click();
+    cy.get("button.gh-btn.gh-btn-black.gh-btn-large").click();
+    cy.get("button.gh-btn.gh-btn-pulse").click();
   });
 
 });
